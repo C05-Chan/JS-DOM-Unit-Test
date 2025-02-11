@@ -73,8 +73,62 @@ function findElementsByQuery(query){
 }
 
 //11. Create a function `reverseList` that can reverse the content of a list (a UL or OL element). The function should take one parameter, which is a query selector used to find the list whose children should be reversed. Return the selected element.
-function reverseList(query){
-    let newArray = [] 
-    let allQueries = document.querySelectorAll(query);
-    return newArray;
+function reverseList(query) {
+    const list = document.querySelector(query);
+    if (list && list.children.length > 0) {
+        const items = Array.from(list.children);
+        items.reverse();
+        items.forEach(item => list.appendChild(item));
+    }
+    return list;
+}
+
+//12. Create a function `mover` that accepts two parameters, the first is a selector for the element to move, the second is a selector for the element that it should be appended to. 
+function mover(moveThis,appendToThis){
+    const element = document.querySelector(moveThis);
+    const target = document.querySelector(appendToThis);
+    
+    if (element && target) {
+        target.appendChild(element);
+    }
+}
+
+//13. Write a function `filler` that accepts two parameters, the first is a list element that should be added to, the second is an array of candidate strings that will be turned into list items.
+function filler(list, candidates) {
+    if (list && Array.isArray(candidates)) {
+        candidates.forEach(item => {
+            const listItem = document.createElement("li");
+            listItem.textContent = item;
+            list.appendChild(listItem);
+        });
+    }
+}
+
+//14. Write a function `dupe` that accepts one parameter, a selector. The function should duplicate the element chosen by the selector (and any children of it) and append it to its parent.
+function dupe(selector) {
+    const element = document.querySelector(selector);
+    
+    if (element) {
+        const clone = element.cloneNode(true);
+        element.parentNode.appendChild(clone);
+    } 
+};
+
+//15. Write a function `removeAll` that accepts one parameter, a selector. All nodes that match that selector should be removed.
+function removeAll(selector) {
+    const elements = document.querySelectorAll(selector);
+    
+    if (elements.length) {
+        elements.forEach(element => element.remove());
+    }
+};
+
+//16.Write a function `getUserData` that returns an object with information from the #username, #speed, #student form input fields. The result should be an object like this: { name: 'john', speed: 30, student: true }
+
+function getUserData() {
+    return {
+        name: document.querySelector("#username")?.value || "",
+        speed: parseFloat(document.querySelector("#speed")?.value) || 0,
+        student: document.querySelector("#student")?.checked || false
+    };
 }
